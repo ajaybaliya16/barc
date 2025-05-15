@@ -1,4 +1,4 @@
-package com.test_core.appversion;
+package thingsboard.customException;
 
 public class ThingsboardException {
 

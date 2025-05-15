@@ -1,4 +1,4 @@
-package com.test_core.appversion;
+package thingsboard.service;
 
 public interface TbMeterService {
 

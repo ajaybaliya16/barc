@@ -1,4 +1,4 @@
-package com.test_core.appversion;
+package thingsboard.controller;
 
 public class MeterController {
 
