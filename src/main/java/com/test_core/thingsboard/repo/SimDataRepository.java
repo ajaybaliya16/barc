@@ -1,4 +1,5 @@
-package com.test_core.thingsboard.dao;
+package com.test_core.thingsboard.repo;
+
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -15,4 +16,5 @@ public interface SimDataRepository extends JpaRepository<SimDataEntity, Long> {
     SimDataEntity findBySimSerial(String simSerial);
 
     SimDataEntity findByPhoneNo(String phoneNo);
+
 }

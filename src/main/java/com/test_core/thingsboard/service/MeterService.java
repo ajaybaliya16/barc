@@ -1,9 +1,12 @@
 package com.test_core.thingsboard.service;
 
-import com.test_core.thingsboard.customException.ThingsboardException;
-import com.test_core.thingsboard.entity.Meter;
+import org.springframework.stereotype.Service;
 
+import com.test_core.thingsboard.entity.Meter;
+@Service
 public interface MeterService {
 	
-	 Meter fetchByDeviceId(String deviceId) throws ThingsboardException;
+    Meter fetchByDeviceId(String deviceId) throws Exception;
+
+
 }

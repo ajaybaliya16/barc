@@ -1,15 +1,11 @@
 package com.test_core.thingsboard.entity;
 
 
-import static com.test_core.thingsboard.entity.ModelConstants.BARC_SCHEMA;
-import static com.test_core.thingsboard.entity.ModelConstants.CONFLICTED_COMPONENTS;
-import static com.test_core.thingsboard.entity.ModelConstants.HARDWARE_VERSION;
-import static com.test_core.thingsboard.entity.ModelConstants.ID_PROPERTY;
-import static com.test_core.thingsboard.entity.ModelConstants.MANDATORY_PARAMS;
-import static com.test_core.thingsboard.entity.ModelConstants.OS_DATA;
-import static com.test_core.thingsboard.entity.ModelConstants.OS_TYPE;
+import static com.test_core.thingsboard.entity.ModelConstants.*;
 
 import java.util.List;
+
+import org.hibernate.annotations.Type;
 
 import com.test_core.thingsboard.common.OsData;
 import com.test_core.thingsboard.dao.ToData;
@@ -26,7 +22,7 @@ import lombok.Data;
 //@TypeDef(name = "jsonb", typeClass = JsonBinaryType.class)
 @Entity
 @Table(schema = BARC_SCHEMA, name = OS_DATA)
-public class OSDataEntity implements ToData<OsData> {
+public class OSDataEntity {//implements ToData<OsData> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = ID_PROPERTY)
@@ -55,15 +51,15 @@ public class OSDataEntity implements ToData<OsData> {
         this.conflictedComponents = osData.getConflictedComponents();
     }
 
-    @Override
-    public OsData toData() {
-        OsData osData = new OsData();
-        osData.setId(this.id);
-        osData.setOsType(this.osType);
-        osData.setHardwareVersion(this.hardwareVersion);
-        osData.setMandatoryParams(this.mandatoryParams);
-        osData.setConflictedComponents(this.conflictedComponents);
-        return osData;
-    }
+//    @Override
+//    public OsData toData() {
+//        OsData osData = new OsData();
+//        osData.setId(this.id);
+//        osData.setOsType(this.osType);
+//        osData.setHardwareVersion(this.hardwareVersion);
+//        osData.setMandatoryParams(this.mandatoryParams);
+//        osData.setConflictedComponents(this.conflictedComponents);
+//        return osData;
+//    }
 
 }

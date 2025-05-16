@@ -1,63 +1,37 @@
 package com.test_core.thingsboard.dao;
 
+
+import java.awt.print.Pageable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.Optional;
+import java.util.UUID;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+import javax.swing.SortOrder;
+//
+//import org.springframework.data.domain.Page;
+//import org.springframework.data.domain.PageRequest;
+//import org.springframework.util.CollectionUtils;
+//import org.thingsboard.server.common.data.EntityInfo;
+//import org.thingsboard.server.common.data.EntitySubtype;
+//import org.thingsboard.server.common.data.EntityType;
+//import org.thingsboard.server.common.data.id.TenantId;
+//import org.thingsboard.server.common.data.id.UUIDBased;
+//import org.thingsboard.server.common.data.page.PageData;
+//import org.thingsboard.server.common.data.page.PageLink;
+//import org.thingsboard.server.dao.model.ToData;
 
 public abstract class DaoUtil {
 
-    private static Map<Long, String> metaDataIdMap = new ConcurrentHashMap<>();
-    private static Map<Long, String> technicalConfigIdMap = new ConcurrentHashMap<>();
-    private static Map<String, Map<String, Long>> metaDataTypeMap = new ConcurrentHashMap<>();
-    private static Map<String, List<Map<String, Object>>> metaDataTypeMapList = new ConcurrentHashMap<>();
-    private static Map<Long, List<String>> osDataIdMap = new ConcurrentHashMap<>();
-    private static Map<String, List<Map<String, Object>>> osDataTypeMapList = new ConcurrentHashMap<>();
-    private static Map<String, List<Long>> osTypeOSTypeIdMap = new ConcurrentHashMap<>();
-    private static Map<String, Map<String, Long>> osTypeHWversionMap = new ConcurrentHashMap<>();
-    private static Map<String, Map<String, List<String>>> osHWversionMandatoryParamsMap = new ConcurrentHashMap<>();
-    private static Map<Long, List<String>> osHWversionConflictedComponentsMap = new ConcurrentHashMap<>();
-    private static Map<Integer, String> eventTypeMap = new ConcurrentHashMap<>();
-    //private static List<TechnicalConfig> technicalConfigList = new ArrayList<>();
-    private static List<String> eventListTypes = new ArrayList<>();
-    private static Map<String, List<String>> hwversionMandatoryParamsMap = new ConcurrentHashMap<>();
-    private static Map<String, List<String>> hwversionConflictedComponentsMap = new ConcurrentHashMap<>();
-    //private static Map<Integer, ChannelMapping> wmkIdChannelNameMap = new ConcurrentHashMap<>();
-    private static Map<String, Long> technicalConfigData = new ConcurrentHashMap<>();
-
-    public static Map<Integer, String> getEventTypeMap() {
-        return eventTypeMap;
+    private DaoUtil() {
     }
-
-    public static List<String> getEventListTypes() {
-        return eventListTypes;
-    }
-
-
-    public static Map<String, Map<String, Long>> getMetaData() {
-        return metaDataTypeMap;
-    }
-
-    public static Map<String, List<Map<String, Object>>> getMetaDataTypeMapList() {
-        return metaDataTypeMapList;
-    }
-
-    public static Map<String, List<Map<String, Object>>> getOsDataTypeMapList() {
-        return osDataTypeMapList;
-    }
-
-    public static Map<String, List<String>> getHWversionConflictedComponentsMap() {
-        return hwversionConflictedComponentsMap;
-    }
-
-    public static Map<String, List<String>> getHWversionMandatoryParamsMap() {
-        return hwversionMandatoryParamsMap;
-    }
-
-	private DaoUtil() {
-	}
 
 //    public static <T> PageData<T> toPageData(Page<? extends ToData<T>> page) {
 //        List<T> data = convertDataList(page.getContent());
@@ -84,36 +58,26 @@ public abstract class DaoUtil {
 //        return PageRequest.of(pageLink.getPage(), pageLink.getPageSize(), pageLink.toSort(sortOrders, columnMap));
 //    }
 
-	public static <T> List<T> convertDataList(Collection<? extends ToData<T>> toDataList) {
-		List<T> list = Collections.emptyList();
-		if (toDataList != null && !toDataList.isEmpty()) {
-			list = new ArrayList<>();
-			for (ToData<T> object : toDataList) {
-				if (object != null) {
-					list.add(object.toData());
-				}
-			}
-		}
-		return list;
-	}
-
-    public static Long getMetaDataId(String type, String name) {
-        Long metaDataId = null;
-        if (metaDataTypeMap.containsKey(type)) {
-            Map<String, Long> typeMap = metaDataTypeMap.get(type);
-            if (typeMap.containsKey(name))
-                metaDataId = typeMap.get(name);
+    public static <T> List<T> convertDataList(Collection<? extends ToData<T>> toDataList) {
+        List<T> list = Collections.emptyList();
+        if (toDataList != null && !toDataList.isEmpty()) {
+            list = new ArrayList<>();
+            for (ToData<T> object : toDataList) {
+                if (object != null) {
+                    list.add(object.toData());
+                }
+            }
         }
-        return metaDataId;
+        return list;
     }
 
-	public static <T> T getData(ToData<T> data) {
-		T object = null;
-		if (data != null) {
-			object = data.toData();
-		}
-		return object;
-	}
+    public static <T> T getData(ToData<T> data) {
+        T object = null;
+        if (data != null) {
+            object = data.toData();
+        }
+        return object;
+    }
 
 //    public static <T> T getData(Optional<? extends ToData<T>> data) {
 //        T object = null;

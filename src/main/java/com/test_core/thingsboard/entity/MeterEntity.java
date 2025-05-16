@@ -1,8 +1,9 @@
 package com.test_core.thingsboard.entity;
 
 
-import static com.test_core.thingsboard.dao.DataUtils.getMetaDataName;
-import static com.test_core.thingsboard.dao.DataUtils.getOSTypeAndHwVersion;
+import static com.test_core.thingsboard.dao.AppConstant.*;
+import static com.test_core.thingsboard.dao.DataUtils.*;
+import static com.test_core.thingsboard.dao.TimeUtils.*;
 import static com.test_core.thingsboard.entity.ModelConstants.ASSET_SERIAL_NUMBER;
 import static com.test_core.thingsboard.entity.ModelConstants.AUDIO_SOURCE_STATUS;
 import static com.test_core.thingsboard.entity.ModelConstants.AUDIO_SOURCE_TS;
