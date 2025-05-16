@@ -3,6 +3,7 @@ package com.test_core.thingsboard.entity;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;

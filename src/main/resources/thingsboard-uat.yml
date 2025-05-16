@@ -1,0 +1,54 @@
+# Zookeeper connection parameters
+zk:
+  url: "${ZOOKEEPER_URL:192.168.12.91:2181,192.168.13.61:2181,192.168.13.31:2181}"
+# Cassandra driver configuration parameters
+cassandra:
+  # Thingsboard cluster name
+  cluster_name: "${CASSANDRA_CLUSTER_NAME:barc}"
+  # Specify node list
+  url: "${CASSANDRA_URL:192.168.12.72:9042,192.168.80.104:9042}"
+# Redis configuration parameters
+redis:
+  standalone:
+    # Redis connection host
+    host: "${REDIS_HOST:192.168.80.105,192.168.80.106}"
+# SQL DAO Configuration parameters
+spring:
+  datasource:
+    # Database connection URL
+    url: "${SPRING_DATASOURCE_URL:jdbc:postgresql://192.168.30.168:5432/barc_dev}"
+    # Database user name
+    username: "${SPRING_DATASOURCE_USERNAME:postgres}"
+    # Database user password
+    password: "${SPRING_DATASOURCE_PASSWORD:postgres#$4400}}"
+# Queue configuration parameters
+queue:
+  kafka:
+    # Kafka Bootstrap nodes in "host:port" format
+    bootstrap.servers: "${TB_KAFKA_SERVERS:192.168.12.91:9092,192.168.13.61:9092,192.168.13.31:9092}"
+    # The multiple copies of data over the multiple brokers of Kafka
+    replication_factor: "${TB_QUEUE_KAFKA_REPLICATION_FACTOR:3}"
+
+file:
+  basepath:
+    android_ota_apk_directory: '/app/android_ota_apk/'
+
+application:
+  base-url: 'https://barc-uat.kellton.net'
+  be-base-url: 'https://barccore-uat.kellton.net'
+
+nats:
+  host: 'nats://180.151.230.184:4222'
+  password: 'password'
+  tls:
+    enabled: true
+
+reports_system:
+  url: 'http://192.168.30.179:8082/'
+
+ostree:
+  host: '192.168.14.53'
+  user: 'kelladmin'
+  password: 'pass@123'
+  repoPath: '/home/kelladmin/ostree_repo'
+  localDir: '/tmp/commits'

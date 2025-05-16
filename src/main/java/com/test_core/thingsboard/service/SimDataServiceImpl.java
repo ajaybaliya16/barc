@@ -1,4 +1,4 @@
-package com.test_core.thingsboard.dao;
+package com.test_core.thingsboard.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,14 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.test_core.thingsboard.common.SimData;
-import com.test_core.thingsboard.common.ThingsboardErrorCode;
-import com.test_core.thingsboard.customException.ThingsboardException;
+import com.test_core.thingsboard.dao.DaoUtil;
+import com.test_core.thingsboard.dao.SimDataDao;
 import com.test_core.thingsboard.entity.MeterEntity;
 import com.test_core.thingsboard.repo.MeterRepository;
+import com.test_core.thingsboard.repo.SimDataRepository;
 
-@Service
+import lombok.extern.slf4j.Slf4j;
+
+@Service("SimDataDaoService")
+@Slf4j
 public class SimDataServiceImpl implements SimDataService {
-	
     @Autowired
     private SimDataDao simDataDao;
     @Autowired
@@ -23,7 +26,7 @@ public class SimDataServiceImpl implements SimDataService {
     private SimDataRepository simDataRepository;
 
     @Override
-    public SimData save(SimData simData, String deviceID, String meterId) throws ThingsboardException {
+    public SimData save(SimData simData, String deviceID, String meterId) throws Exception {
         SimData existingSimData = null;
         List<String> matchedParams = null;
         if (simData.getImsi() != null) {
@@ -51,13 +54,13 @@ public class SimDataServiceImpl implements SimDataService {
                 if (matchedParams.size() == 4)
                     return existingSimData;
                 else
-                    throw new ThingsboardException("SIM data already exists with matched parameters: " + matchedParams, ThingsboardErrorCode.GENERAL);
+                    throw new Exception("SIM data already exists with matched parameters: " + matchedParams);//, ThingsboardErrorCode.GENERAL);
             }
         } else
             return simDataDao.save(simData);
     }
 
-    private List<String> validateSimData(SimData simData, SimData existingSimData, String deviceID, String meterId) throws ThingsboardException {
+    private List<String> validateSimData(SimData simData, SimData existingSimData, String deviceID, String meterId) throws Exception {
         List<String> matchedParams = new ArrayList<>();
         if (simData.getSimSerial() != null && existingSimData.getSimSerial() != null && simData.getSimSerial().equals(existingSimData.getSimSerial()))
             matchedParams.add("SIMSERIAL");
@@ -80,13 +83,14 @@ public class SimDataServiceImpl implements SimDataService {
             if (meterEntity != null) {
                 if (meterEntity.getDeviceId() != null) {
                     if (!deviceID.equals(meterEntity.getDeviceId()))
-                        throw new ThingsboardException("SIM data assigned to a " + (meterEntity.getMeterId() != null ? " meter " + meterEntity.getMeterId() : " device id " + meterEntity.getDeviceId()), ThingsboardErrorCode.GENERAL);
+                        throw new Exception("SIM data assigned to a " + (meterEntity.getMeterId() != null ? " meter " + meterEntity.getMeterId() : " device id " + meterEntity.getDeviceId()));//, ThingsboardErrorCode.GENERAL);
                 } else {
                     if (matchedParams.size() < 4)
-                        throw new ThingsboardException("SIM data assigned to a meter " + meterEntity.getMeterId(), ThingsboardErrorCode.GENERAL);
+                        throw new Exception("SIM data assigned to a meter " + meterEntity.getMeterId());//, ThingsboardErrorCode.GENERAL);
                 }
             }
         }
         return matchedParams;
     }
+
 }
